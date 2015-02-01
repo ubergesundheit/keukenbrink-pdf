@@ -13,12 +13,11 @@ class KeukenbrinkPdf
 
   def self.get_menue
     # determine if cache needs refresh
-    today_cweek = Date.today.cweek.to_s.rjust(2,'0')
-    
+    today_cweek = Date.today.strftime('%0V-KW-%g')
 
     if @cache[:menue] == 'cache empty' or @cache[:cweek] != nil and @cache[:cweek] != today_cweek
       # compute current pdf url
-      url = "http://keukenbrink.de/images/menueplaene/Menueplan#{today_cweek}-KW-15.pdf"
+      url = "http://keukenbrink.de/images/menueplaene/Menueplan#{today_cweek}.pdf"
 
       # get pdf text
       raw_text = `./pdf2textfromurl.sh #{url}`
