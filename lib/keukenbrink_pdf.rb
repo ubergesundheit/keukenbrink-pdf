@@ -1,5 +1,4 @@
-require "json"
-require "date"
+require "./lib/menue_parser.rb"
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -26,16 +25,11 @@ class KeukenbrinkPdf
       if raw_text.start_with? 'wget error' or raw_text.start_with? 'Syntax Warning: May not be a PDF file (continuing anyway)'
         @cache[:menue] = "#{raw_text.lines.first}\n#{url}"
       else
-        @cache[:menue] = transform_plan raw_text
+        @cache[:menue] = MenueParser::parse raw_text
       end
       @cache[:cweek] = today_cweek
     end
     @cache[:menue]
   end
-
-  def self.transform_plan(raw_text)
-    raw_text.strip.squeeze(" ")
-  end
-
 
 end
