@@ -12,13 +12,6 @@ class MenueParser
 
   def self.parse(raw_text)
     str = raw_text.gsub!("\n", " ").squeeze!(" ")
-    # lines = raw_text.strip.squeeze(" ").lines[0,2].map(&:strip)
-
-    # str_date_range = lines.slice!(0,2).map(&:strip).join(" ")
-    # end_date_str = str_date_range[/\d{2}\.\d{2}\.\d{4}/]
-    # start_date_str = "#{str_date_range[/\d{2}\.\d{2}\./]}#{end_date_str.split(".").last}"
-
-    # start_date = Date.parse(start_date_str)
 
     days = {}
     words = str.split " "
@@ -36,7 +29,6 @@ class MenueParser
     curr_price = nil
 
     words.each_with_index do |word, index|
-      # puts (word == "Snack" && words[index+2] == "Woche:")
       case word
       when /(\w{2,7}tag|Mittwoch|Vegetarisch):/, "Snack" # start the day, veg and snack of the week
         if word != "Snack"
@@ -53,8 +45,7 @@ class MenueParser
 
         curr_day_hash = {
           dish: words[curr_menu_start_index..curr_menu_end_index].join(" "),
-          price: curr_price,
-          # date_n: ENGLISH_DAYNAMES[curr_day]
+          price: curr_price
         }
 
         # add the date only for regular dishes
