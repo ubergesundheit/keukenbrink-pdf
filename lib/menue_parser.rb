@@ -1,4 +1,3 @@
-require "json"
 require "date"
 
 class MenueParser
@@ -71,7 +70,7 @@ class MenueParser
         days[curr_day] = curr_day_hash
       end
     end
-    days.to_json
+    days
   end
 
 end
